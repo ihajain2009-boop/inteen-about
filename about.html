@@ -1,0 +1,116 @@
+import React, { useEffect, useRef } from 'react';
+
+export default function AboutPage() {
+  const imgRef = useRef(null);
+  const textRef = useRef(null);
+
+  useEffect(() => {
+    const obsOptions = { threshold: 0.2 };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('translate-y-0', 'opacity-100');
+          entry.target.classList.remove('translate-y-6', 'opacity-0');
+        }
+      });
+    }, obsOptions);
+
+    if (imgRef.current) observer.observe(imgRef.current);
+    if (textRef.current) observer.observe(textRef.current);
+
+    return () => {
+      if (imgRef.current) observer.unobserve(imgRef.current);
+      if (textRef.current) observer.unobserve(textRef.current);
+    };
+  }, []);
+
+  return (
+    <div className="min-h-screen w-full bg-[#0B0F19] text-gray-100 px-6 py-20 overflow-x-hidden">
+
+      {/* Background glows */}
+      <div className="absolute -left-32 -top-24 w-96 h-96 rounded-full bg-gradient-to-tr from-[#1f2a63] to-[#4527a0] opacity-30 blur-3xl pointer-events-none"></div>
+      <div className="absolute -right-32 -bottom-24 w-96 h-96 rounded-full bg-gradient-to-tr from-[#0ea5e9] to-[#7c3aed] opacity-20 blur-3xl pointer-events-none"></div>
+
+      <main className="relative z-10 max-w-6xl mx-auto space-y-20">
+
+        {/* ABOUT US */}
+        <section className="flex flex-col-reverse md:flex-row items-center gap-10 px-2 md:px-0">
+
+          <div
+            ref={textRef}
+            className="md:flex-1 transform translate-y-6 opacity-0 transition-all duration-700 ease-out"
+          >
+            <h2 className="text-3xl font-semibold text-white mb-4">About Us</h2>
+            <p className="text-gray-300 leading-relaxed text-lg">
+              InTeen is a non-profit organisation dedicated to providing meaningful internship opportunities to high school students across India. In a country where academic achievement often dominates focus, real-world exposure can be rare. We bridge that gap by connecting motivated teens with companies and startups ready to mentor and include them — creating pathways for practical learning, confidence, and career clarity.
+            </p>
+          </div>
+
+          <div
+            ref={imgRef}
+            className="md:w-1/2 rounded-xl overflow-hidden shadow-lg transform translate-y-6 opacity-0 transition-all duration-700 ease-out"
+          >
+            <img
+              src="https://i.ibb.co/5XNjgRJx/Screenshot-2025-05-11-191337.png"
+              alt="students collaborating"
+              className="w-full h-64 md:h-56 object-cover"
+            />
+          </div>
+        </section>
+
+        {/* VISION */}
+        <section className="flex flex-col md:flex-row items-center gap-10 px-2 md:px-0">
+          <div className="md:w-1/2 rounded-xl overflow-hidden shadow-lg">
+            <img
+              src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070&auto=format&fit=crop"
+              alt="vision image"
+              className="w-full h-64 md:h-56 object-cover"
+            />
+          </div>
+
+          <div className="md:flex-1">
+            <h2 className="text-3xl font-semibold text-white mb-4">Our Vision</h2>
+            <p className="text-gray-300 leading-relaxed text-lg">
+              We envision an India where teenagers are not only measured by exam scores but are empowered through practical experiences that shape aspirations, leadership, and careers. We aim to nurture a generation of informed, responsible, and innovative young people who step into the world with clarity and courage.
+            </p>
+          </div>
+        </section>
+
+        {/* MISSION */}
+        <section className="flex flex-col md:flex-row items-center gap-10 px-2 md:px-0">
+          <div className="md:flex-1">
+            <h2 className="text-3xl font-semibold text-white mb-4">Our Mission</h2>
+            <p className="text-gray-300 leading-relaxed text-lg">
+              InTeen serves as a dynamic interface between young minds and the entrepreneurial ecosystem. Our mission is to simplify and personalise the internship journey — through curated opportunities, transparent expectations, flexible scheduling, and meaningful mentorship — so teens can gain real-world experience without compromising their studies.
+            </p>
+          </div>
+
+          <div className="md:w-1/2 rounded-xl overflow-hidden shadow-lg">
+            <img
+              src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=2070&auto=format&fit=crop"
+              alt="mission image"
+              className="w-full h-64 md:h-56 object-cover"
+            />
+          </div>
+        </section>
+
+        {/* FOUNDERS NOTE */}
+        <section className="mt-6 py-12 px-8 rounded-3xl bg-gradient-to-r from-[#071224]/40 via-[#0b1220]/50 to-transparent border border-[#172233] shadow-2xl">
+          <div className="max-w-3xl mx-auto text-center">
+            <h2 className="text-3xl font-semibold text-white mb-6">Note from the Founders</h2>
+            <p className="text-gray-300 leading-relaxed text-lg italic">
+              InTeen wasn’t built in a boardroom. It grew out of conversations, frustrations, and the shared feeling that teenagers deserve more than just academic pressure — they deserve opportunities, mentorship, and a space where their ambitions are actually taken seriously.
+              <br /><br />
+              As high-school students ourselves, we know what it feels like to want to explore beyond academics but not know where to begin. That confusion, that curiosity, and that drive inspired us to create InTeen — a platform that supports you, guides you, and grows with you.
+              <br /><br />
+              Thank you for believing in this journey with us. We’re building InTeen for you, but also with you, and we’ll keep shaping it into a space that truly empowers every teen who joins us.
+            </p>
+
+            <p className="mt-8 text-gray-200 font-semibold">~ Ridima Gupta & Iha Jain, Co-Founders, InTeen</p>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  );
+}
